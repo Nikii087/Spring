@@ -1,0 +1,100 @@
+SPRING MVS APLICATION CREATE STEPS:
+
+1.CREATE THE DISPATCHER SERVELET IN WEB.XML.---->FRONT CONTROLLER
+2.CREATE SPRINNG CONFIGURATION FILE.
+3.CONFIGURE VIEW RESOLVER.
+4.CREATE CONTROLLER
+5.CREATE A VIEW to show( PAGE)
+
+
+****SENDING DATA FROM CONTROLLER TO VIEW***********
+1.MODEL()-addAttribute(String key,Object value);-add and GET -request.getAttribute();
+2.ModelAndView-addObject(String key,Object value);
+ //This is for date
+3.LocalDateTime now =	LocalDateTime.now();
+  modelAndView.addObject("time" ,now);
+		
+***********JSP Expression Language ********************
+Use ${ name} without using request.getAttribute
+
+Using JSTL :Standard Tag Library (JSTL) 
+
+<c:forEach var="item" items="${marks}"> 
+	<h1>Marks are: ${item}</h1>
+</c:forEach>
+
+****SENDING DATA FROM View To  CONTROLLER ***********
+@RequestParam for get single field @Controller side
+@ModelAttribute for gel All Data from form
+
+@RequestMapping("/home"):-Handler Method 
+
+*We can use @RequestMapping for entire class(On Controller) or Only for handler menthod
+*@RequestMapping(path="/home", method=RequestMethod.GET)
+
+*****using servlet(Old) method
+
+public String handleform(HttpServletRequest request) 
+{
+	        String email=request.getParameter("email");
+		System.out.println("Email is:" + email);
+		return "";
+}
+
+
+******using @RequestParam*******
+public String handleform
+(@RequestParam(name="email" ,required=true) String email,
+@RequestParam("userName") String userName,
+@RequestParam("pass") String pass ,Model model)
+
+*******@ModelAttribute*******
+public String handleform(@ModelAttribute User user,Model model) {
+	System.out.println(user);
+	return "success";
+}
+*******User Registration Using ORM*******************
+
+<>HibernateTemplate is a class Of ORM which help for database connection.
+<>@service for define it is service class.
+
+*******Handle ERrors*************
+Use spring form taglib url in form
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+. BindingResult result is use for handling errors.
+
+if(result.hasErrors())
+{
+	return "complex_form";
+}   
+
+******File uploading**********
+1.first add dependancy
+2.Add multipartResolver in spring.xml
+3.make Form     
+
+******@Path Variable annotation*************
+I is used to bind method parameter to URI template variable
+
+MODELANDVIEW:
+
+CONTROLLER----MODEKANDVIEW---(VIEW)(jsp)
+data(primitive type value,objectes(student,person,emp),collect(set,map)
+
+*****HOW TO REDIRECT IN SPRING MVC*******
+1.HttpservletResponse
+2.Redirect prefix
+ public String handler()
+{
+ return "redirect:/url";
+}
+
+3.RedirectView
+
+ public RedirectView handler()
+{
+ RedirectView r=new RedirectView();
+ r.setUrl("url");
+return r;
+
+}
